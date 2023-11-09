@@ -97,6 +97,10 @@ void tokenize(char *token) {
 }
 
 
+// global variables
+bool in_string = false;
+
+
 int main()
 {
 	FILE* ptr;
@@ -130,22 +134,37 @@ int main()
         }
 
         if (is_special(ch)) { // check special character, if true, empty the buffer
-            if (strlen(buffer) > 0)
+            int string_length = strlen(buffer);
+            if (string_length > 0) {
+                if (ch == '"' && string_length > 1)
+                    buffer[index++] = ch;
                 tokenize(buffer);
+            }
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
         }
         
         if (ch != ' ') { // no space, it should be in buffer
-            buffer[index++] = ch;
-        } else {
+            if (ch == '"') { // check for string delimeter
+                if (!in_string) {
+                    in_string = true;
+                    buffer[index++] = ch;
+                } else {
+                    in_string = false;
+                }
+            } else {
+                buffer[index++] = ch;
+            }
+        } else if (!in_string) {
             // print the buffer
             if (strlen(buffer) > 0)
                 tokenize(buffer);
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
+        } else {
+            buffer[index++] = ch;
         }
     }
 
