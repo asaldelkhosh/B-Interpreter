@@ -4,8 +4,9 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+// =========== variables ===========
 
-// constant parameters
+// constants
 #define OPERATIONS "+-!*/%^<>=|&"
 #define DELIMETERS "()[]{},;:'\""
 
@@ -13,11 +14,13 @@ char keywords[][10] = { "array", "boolean", "char", "else", "false", "for", "fun
                        "integer", "print", "return", "string", "true", "void", "while" };
 
 
-// global variables
+// global
 bool in_string = false;
 int line = 1;
 int character = 0;
 
+
+// =========== helper functions ===========
 
 // check if character is alphabet or not
 bool is_alphabet(char ch) {
@@ -75,6 +78,8 @@ bool is_number(char *token) {
     return true;
 }
 
+// =========== main functions ===========
+
 // check token type and print its details
 void tokenize(char *token) {
     if (strlen(token) > 1) {
@@ -119,11 +124,13 @@ int main()
 	ptr = fopen("test.b", "r");
 	if (NULL == ptr) {
 		printf("file can't be opened \n");
+        exit(-1);
 	}
 
     char buffer[100];
     int index = 0;
 
+    // empty the buffer
     memset(buffer, 0, sizeof(buffer));
     
     // reading character by character
@@ -132,19 +139,18 @@ int main()
 
         character++;
 
-        if (ch == '\n')
-            line++;
-
-        // skip enters, null characters, or end of file
-        if (ch =='\n' || ch == '\0' || ch == EOF) {
+        // skip enters or end of file
+        if (ch =='\n' || ch == EOF) {
             // before continuing, print the buffer
             if (strlen(buffer) > 0)
                 tokenize(buffer);
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
-            character = 0;
 
+            character = 0;
+            line++;
+            
             continue;
         }
 
