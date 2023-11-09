@@ -43,6 +43,11 @@ bool is_delimiter(char ch) {
     return false;
 }
 
+// check to see if a character is special
+bool is_special(char ch) {
+    return is_delimiter(ch) || is_operator(ch);
+}
+
 // check if string is keyword or not
 bool is_keyword(char *token) {
     for (int i = 0; i < sizeof(keywords) / sizeof(keywords[0]); i++) {
@@ -122,6 +127,14 @@ int main()
             index = 0;
 
             continue;
+        }
+
+        if (is_special(ch)) { // check special character, if true, empty the buffer
+            if (strlen(buffer) > 0)
+                tokenize(buffer);
+
+            memset(buffer, 0, sizeof(buffer));
+            index = 0;
         }
         
         if (ch != ' ') { // no space, it should be in buffer
