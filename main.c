@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
+
+
+// check if character is alphabet or not
+bool is_alphabet(char ch) {
+    return isalpha(ch);
+}
 
 
 int main()
@@ -18,7 +26,11 @@ int main()
 	while (!feof(ptr)) {
         ch = fgetc(ptr);
 
-        printf("%c", ch);
+        // skip enters, null characters, or end of file
+        if (ch =='\n' || ch == '\0' || ch == EOF)
+            continue;
+
+        printf("%c -> %d\n", ch, is_alphabet(ch));
     }
 
 	// closing the file
