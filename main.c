@@ -97,8 +97,10 @@ void tokenize(char *token) {
             printf("DELIMITER: ");
         else if (is_digital(ch))
             printf("INTEGER: ");
-        else
-            printf("INVALID: ");
+        else {
+            printf("INVALID INPUT line:%d, char:%d \t%s", line, character - strlen(token), token);
+            exit(-1);
+        }
     }
     
     printf("\nline:%d, char:%d\t%s\n", line, character - strlen(token), token);
