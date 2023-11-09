@@ -150,17 +150,19 @@ int main()
 
             character = 0;
             line++;
-            
+
             continue;
         }
 
+        // this is for special parts that are not in string, for example `puts:`
+        // that has a delimeter connected to it
         if (is_special(ch)) { // check special character, if true, empty the buffer
-            int string_length = strlen(buffer);
-            if (string_length > 0) {
-                if (ch == '"' && string_length > 1) {
+            if (strlen(buffer) > 0) {
+                if (ch == '"' && in_string) { // if the buffer has string init add a `"` to the end
                     buffer[index++] = ch;
                     character++;
                 }
+
                 tokenize(buffer);
             }
 
@@ -179,14 +181,13 @@ int main()
             } else {
                 buffer[index++] = ch;
             }
-        } else if (!in_string) {
-            // print the buffer
+        } else if (!in_string) { // if we are not in string, we should print the current buffer
             if (strlen(buffer) > 0)
                 tokenize(buffer);
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
-        } else {
+        } else { // if in string, add to it
             buffer[index++] = ch;
         }
     }
