@@ -73,24 +73,24 @@ bool is_number(char *token) {
 void tokenize(char *token) {
     if (strlen(token) > 1) {
         if (is_keyword(token))
-            printf("keyword: ");
+            printf("KEYWORD: ");
         else if (is_number(token))
-            printf("number: ");
+            printf("NUMBER: ");
         else
-            printf("string: ");
+            printf("STRING: ");
     } else {
         char ch = token[0];
 
         if (is_alphabet(ch))
-            printf("alpabet: ");
+            printf("ALPHABET: ");
         else if (is_operator(ch))
-            printf("operator: ");
+            printf("OPERATOR: ");
         else if (is_delimiter(ch))
-            printf("delimiter: ");
+            printf("DELIMITER: ");
         else if (is_digital(ch))
-            printf("digital: ");
+            printf("DIGIT: ");
         else
-            printf("unknown: ");
+            printf("UNKOWN: ");
     }
     
     printf("\n\t%s\n", token);
