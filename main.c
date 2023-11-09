@@ -54,12 +54,41 @@ bool is_keyword(char *token) {
     return false;
 }
 
+// check if string is number or not
+bool is_number(char *token) {
+    for (int i = 0; i < sizeof(token) / sizeof(token[0]); i++) {
+        if (!is_digital(token[i]))
+            return false;
+    }
+
+    return true;
+}
+
 // check token type and print its details
 void tokenize(char *token) {
-    if (is_keyword(token))
-        printf("keyword: ");
+    if (strlen(token) > 1) {
+        if (is_keyword(token))
+            printf("keyword: ");
+        else if (is_number(token))
+            printf("number: ");
+        else
+            printf("string: ");
+    } else {
+        char ch = token[0];
+
+        if (is_alphabet(ch))
+            printf("alpabet: ");
+        else if (is_operator(ch))
+            printf("operator: ");
+        else if (is_delimiter(ch))
+            printf("delimiter: ");
+        else if (is_digital(ch))
+            printf("digital: ");
+        else
+            printf("unknown: ");
+    }
     
-    printf("%s\n", token);
+    printf("\n\t%s\n", token);
 }
 
 
