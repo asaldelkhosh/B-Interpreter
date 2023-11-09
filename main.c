@@ -117,15 +117,15 @@ void tokenize(char *token) {
 
 int main()
 {
-	FILE* ptr;
-	char ch;
+    FILE* ptr;
+    char ch;
 
-	// opening file in reading mode
-	ptr = fopen("test.b", "r");
-	if (NULL == ptr) {
-		printf("file can't be opened \n");
+    // opening file in reading mode
+    ptr = fopen("test.b", "r");
+    if (NULL == ptr) {
+        printf("file can't be opened \n");
         exit(-1);
-	}
+    }
 
     char buffer[100];
     int index = 0;
