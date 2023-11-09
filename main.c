@@ -54,6 +54,14 @@ bool is_keyword(char *token) {
     return false;
 }
 
+// check token type and print its details
+void tokenize(char *token) {
+    if (is_keyword(token))
+        printf("keyword: ");
+    
+    printf("%s\n", token);
+}
+
 
 int main()
 {
@@ -79,7 +87,7 @@ int main()
         if (ch =='\n' || ch == '\0' || ch == EOF) {
             // before continuing, print the buffer
             if (strlen(buffer) > 0)
-                printf("%s\n", buffer);
+                tokenize(buffer);
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
@@ -92,7 +100,7 @@ int main()
         } else {
             // print the buffer
             if (strlen(buffer) > 0)
-                printf("%s\n", buffer);
+                tokenize(buffer);
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
