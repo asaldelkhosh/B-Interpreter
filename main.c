@@ -101,7 +101,7 @@ void tokenize(char *token) {
             printf("INVALID: ");
     }
     
-    printf("\nline:%d, char:%d\t%s\n", line, character, token);
+    printf("\nline:%d, char:%d\t%s\n", line, character - strlen(token), token);
 }
 
 int main()
