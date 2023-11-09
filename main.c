@@ -41,15 +41,37 @@ int main()
 		printf("file can't be opened \n");
 	}
 
+    char buffer[100];
+    int index = 0;
+
+    memset(buffer, 0, sizeof(buffer));
+    
     // reading character by character
 	while (!feof(ptr)) {
         ch = fgetc(ptr);
 
         // skip enters, null characters, or end of file
-        if (ch =='\n' || ch == '\0' || ch == EOF)
-            continue;
+        if (ch =='\n' || ch == '\0' || ch == EOF) {
+            // before continuing, print the buffer
+            if (strlen(buffer) > 0)
+                printf("%s\n", buffer);
 
-        printf("%c -> alp:%d , num:%d , opr:%d\n", ch, is_alphabet(ch), is_digital(ch), is_operator(ch));
+            memset(buffer, 0, sizeof(buffer));
+            index = 0;
+
+            continue;
+        }
+        
+        if (ch != ' ') { // no space, it should be in buffer
+            buffer[index++] = ch;
+        } else {
+            // print the buffer
+            if (strlen(buffer) > 0)
+                printf("%s\n", buffer);
+
+            memset(buffer, 0, sizeof(buffer));
+            index = 0;
+        }
     }
 
 	// closing the file
