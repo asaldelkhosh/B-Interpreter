@@ -6,7 +6,11 @@
 
 
 // constant parameters
-#define OPERATIONS "+-*/%="
+#define OPERATIONS "+-!*/%^<>=|&"
+#define DELIMETERS "()[]{},;:'\""
+
+char keywords[][10] = { "array", "boolean", "char", "else", "false", "for", "function", "if",
+                       "integer", "print", "return", "string", "true", "void", "while" };
 
 
 // check if character is alphabet or not
@@ -19,11 +23,32 @@ bool is_digital(char ch) {
     return isdigit(ch);
 }
 
-// check if character is mathematical operation
+// check if character is mathematical operation or not
 bool is_operator(char ch) {
     for (int i = 0; i < sizeof(OPERATIONS); i++) {
         if (ch == OPERATIONS[i])
             return true;
+    }
+
+    return false;
+}
+
+// check if character is delimiter or not
+bool is_delimiter(char ch) {
+    for (int i = 0; i < sizeof(DELIMETERS); i++) {
+        if (ch == DELIMETERS[i])
+            return true;
+    }
+
+    return false;
+}
+
+// check if string is keyword or not
+bool is_keyword(char *token) {
+    for (int i = 0; i < sizeof(keywords) / sizeof(keywords[0]); i++) {
+        if (strcmp(token, keywords[i]) == 0) {
+            return true;
+        }
     }
 
     return false;

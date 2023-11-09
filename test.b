@@ -1,4 +1,5 @@
-int main() {
-    a = 5;
-    return 0;
+puts: function void ( s: string );
+
+main: function integer () = {
+    puts("hello world");
 }
