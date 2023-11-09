@@ -13,6 +13,12 @@ char keywords[][10] = { "array", "boolean", "char", "else", "false", "for", "fun
                        "integer", "print", "return", "string", "true", "void", "while" };
 
 
+// global variables
+bool in_string = false;
+int line = 1;
+int character = 0;
+
+
 // check if character is alphabet or not
 bool is_alphabet(char ch) {
     return isalpha(ch);
@@ -75,9 +81,11 @@ void tokenize(char *token) {
         if (is_keyword(token))
             printf("KEYWORD: ");
         else if (is_number(token))
-            printf("NUMBER: ");
-        else
+            printf("INTEGER: ");
+        else if (in_string)
             printf("STRING: ");
+        else
+            printf("IDENTIFIER: ");
     } else {
         char ch = token[0];
 
@@ -88,18 +96,13 @@ void tokenize(char *token) {
         else if (is_delimiter(ch))
             printf("DELIMITER: ");
         else if (is_digital(ch))
-            printf("DIGIT: ");
+            printf("INTEGER: ");
         else
-            printf("UNKOWN: ");
+            printf("INVALID: ");
     }
     
-    printf("\n\t%s\n", token);
+    printf("\nline:%d, char:%d\t%s\n", line, character, token);
 }
-
-
-// global variables
-bool in_string = false;
-
 
 int main()
 {
@@ -121,6 +124,11 @@ int main()
 	while (!feof(ptr)) {
         ch = fgetc(ptr);
 
+        character++;
+
+        if (ch == '\n')
+            line++;
+
         // skip enters, null characters, or end of file
         if (ch =='\n' || ch == '\0' || ch == EOF) {
             // before continuing, print the buffer
@@ -129,6 +137,7 @@ int main()
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
+            character=0;
 
             continue;
         }
