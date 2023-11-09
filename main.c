@@ -79,13 +79,13 @@ bool is_number(char *token) {
 void tokenize(char *token) {
     if (strlen(token) > 1) {
         if (is_keyword(token))
-            printf("KEYWORD: ");
+            printf("KEYWORD ");
         else if (is_number(token))
-            printf("INTEGER: ");
+            printf("INTEGER ");
         else if (in_string)
-            printf("STRING: ");
+            printf("STRING ");
         else if (is_alphabet(token[0]) || token[0] == '_')
-            printf("IDENTIFIER: ");
+            printf("IDENTIFIER ");
         else {
             printf("INVALID INPUT line:%d, char:%d \t%s", line, character - strlen(token), token);
             exit(-1);
@@ -94,20 +94,20 @@ void tokenize(char *token) {
         char ch = token[0];
 
         if (is_alphabet(ch))
-            printf("ALPHABET: ");
+            printf("ALPHABET ");
         else if (is_operator(ch))
-            printf("OPERATOR: ");
+            printf("OPERATOR ");
         else if (is_delimiter(ch))
-            printf("DELIMITER: ");
+            printf("DELIMITER ");
         else if (is_digital(ch))
-            printf("INTEGER: ");
+            printf("INTEGER ");
         else {
             printf("INVALID INPUT line:%d, char:%d \t%s", line, character - strlen(token), token);
             exit(-1);
         }
     }
     
-    printf("\nline:%d, char:%d\t%s\n", line, character - strlen(token), token);
+    printf("line:%d, char:%d\n\t%s\n", line, character - strlen(token), token);
 }
 
 int main()
