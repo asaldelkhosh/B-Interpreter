@@ -1,5 +1,5 @@
 puts: function void ( s: string );
 
 main: function integer () = {
-    puts("hello world");
+    _puts("hello world");
 }

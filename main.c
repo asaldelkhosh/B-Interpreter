@@ -84,8 +84,12 @@ void tokenize(char *token) {
             printf("INTEGER: ");
         else if (in_string)
             printf("STRING: ");
-        else
+        else if (is_alphabet(token[0]) || token[0] == '_')
             printf("IDENTIFIER: ");
+        else {
+            printf("INVALID INPUT line:%d, char:%d \t%s", line, character - strlen(token), token);
+            exit(-1);
+        }
     } else {
         char ch = token[0];
 
