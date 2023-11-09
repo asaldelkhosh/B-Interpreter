@@ -137,7 +137,7 @@ int main()
 
             memset(buffer, 0, sizeof(buffer));
             index = 0;
-            character=0;
+            character = 0;
 
             continue;
         }
@@ -145,8 +145,10 @@ int main()
         if (is_special(ch)) { // check special character, if true, empty the buffer
             int string_length = strlen(buffer);
             if (string_length > 0) {
-                if (ch == '"' && string_length > 1)
+                if (ch == '"' && string_length > 1) {
                     buffer[index++] = ch;
+                    character++;
+                }
                 tokenize(buffer);
             }
 
